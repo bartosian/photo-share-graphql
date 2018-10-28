@@ -2,6 +2,13 @@ const { ApolloServer } = require('apollo-server');
 
 
 const typeDefs = `
+enum Photocategory {
+    SELFIE
+    PORTRAIT
+    ACTION
+    LANDSCAPE
+    GRAPHIC
+}
 type Photo {
     id: ID!
     url: String!
@@ -35,6 +42,10 @@ const resolvers = {
             photos.push(args)
             return newPhoto
         }
+    },
+    Photo: {
+        url: parent => 'http://yoursite.com',
+        id: parent => _id++
     }
 }
 

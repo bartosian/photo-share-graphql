@@ -17,17 +17,23 @@ type Mutation {
     postPhoto(name: String! description: String): Photo!
 }
 `
-
+var _id = 0
 var photos = []
 
 const resolvers = {
     Query: {
-        totalPhotos: () => photos.length
+        totalPhotos: () => photos.length,
+        allPhotos: () => photos
     },
     Mutation: {
         postPhoto(parent, args) {
+
+            var newPhoto = {
+                id: _id++,
+                ...args
+            }
             photos.push(args)
-            return true
+            return newPhoto
         }
     }
 }

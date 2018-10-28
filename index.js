@@ -40,7 +40,11 @@ type Mutation {
     postPhoto(input: PostPhotoInput!): Photo!
 }
 `
-var _id = 0
+var _id = 0;
+var users = [
+    {"githubLogin": "mHattrup", "name": "Mike Hattrup"},
+    {"githubLogin": "gPlake", "name": "Glen Plake"}
+];
 var photos = [{
     "id": "1",
     "name": "Dropping",
@@ -72,8 +76,15 @@ const resolvers = {
         }
     },
     Photo: {
-        url: parent => 'http://yoursite.com',
-        id: parent => _id++
+        url: parent => `http://yoursite.com/${parent.id}.jpg`,
+        postedBy: parent => {
+            return users.find(u => u.githubLogin === parent.githubLogin)
+        }
+    },
+    User: {
+        postedPhotos: parent => {
+            return photos.filter(p => p.githuUser === psrent.githubLogin)
+        }
     }
 }
 

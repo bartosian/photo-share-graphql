@@ -14,6 +14,13 @@ type Photo {
     url: String!
     name: String!
     description: String
+    category: PhotoCategory!
+}
+
+input PostPhotoInput {
+    name: String!
+    category: PhotoCategory=PORTRAIT
+    description: String
 }
 type Query {
     totalPhotos: Int!
@@ -21,7 +28,7 @@ type Query {
 }
 
 type Mutation {
-    postPhoto(name: String! description: String): Photo!
+    postPhoto(input: PostPhotoInput!): Photo!
 }
 `
 var _id = 0

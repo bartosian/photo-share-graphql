@@ -87,12 +87,20 @@ const resolvers = {
         url: parent => `http://yoursite.com/${parent.id}.jpg`,
         postedBy: parent => {
             return users.find(u => u.githubLogin === parent.postedBy)
-        }
+        },
+        taggedUsers: parent => tags
+            .filter(tag => tag.photoID === parent.id)
+            .map(tag => tag.userID)
+            .map(tag => users.find(u => u.githubLogin === tag))
     },
     User: {
         postedPhotos: parent => {
             return photos.filter(p => p.postedBy === parent.githubLogin)
-        }
+        },
+        inPhotos: parent => tags
+            .filter(tag => tag.userID === parent.id)
+            .map(tag => tag.photoID)
+            .map(photoID => photos.find(p => p.id === photoID))
     }
 }
 

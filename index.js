@@ -42,7 +42,7 @@ type Mutation {
 `
 var _id = 0;
 var users = [
-    {"githubLogin": "mHattrup", "name": "Mike Hattrup"},
+    {"githubLogin": "sSchmidt", "name": "Mike Hattrup"},
     {"githubLogin": "gPlake", "name": "Glen Plake"}
 ];
 var photos = [{
@@ -50,13 +50,13 @@ var photos = [{
     "name": "Dropping",
     "description": "The heart chute",
     "category": "ACTION",
-    "githubUser": "gPlake"
+    "postedBy": "gPlake"
 }, {
     "id": "2",
     "name": "Enjoing",
     "description": "The heart chute",
     "category": "SELFIE",
-    "githubUser": "sSchmidt"
+    "postedBy": "sSchmidt"
 }];
 
 const resolvers = {
@@ -83,7 +83,7 @@ const resolvers = {
     },
     User: {
         postedPhotos: parent => {
-            return photos.filter(p => p.githuUser === psrent.githubLogin)
+            return photos.filter(p => p.postedBy === parent.githubLogin)
         }
     }
 }

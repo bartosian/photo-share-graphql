@@ -1,4 +1,5 @@
 const { ApolloServer } = require('apollo-server');
+const { GraphQLScalarType } = require('graphql');
 
 
 const typeDefs = `
@@ -37,7 +38,7 @@ input PostPhotoInput {
 }
 type Query {
     totalPhotos: Int!
-    allPhotos: [Photo!]!
+    allPhotos(after: DateTime): [Photo!]!
 }
 
 type Mutation {
@@ -72,7 +73,9 @@ var tags = [
 const resolvers = {
     Query: {
         totalPhotos: () => photos.length,
-        allPhotos: () => photos
+        allPhotos: (parent, args) => {
+            args.after
+        }
     },
     Mutation: {
         postPhoto(parent, args) {
@@ -103,7 +106,14 @@ const resolvers = {
             .filter(tag => tag.userID === parent.id)
             .map(tag => tag.photoID)
             .map(photoID => photos.find(p => p.id === photoID))
-    }
+    },
+    DateTime: new GraphQLScalarType({
+        name: 'DateTime',
+        description: 'A valid date time value.',
+        parseValue: value => new Date(value),
+        serialize: value => new Date(value).toISOString(),
+        parseLiteral: ast => ast.value
+    })
 }
 
 const server = new ApolloServer({

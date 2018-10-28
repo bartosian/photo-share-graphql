@@ -2,7 +2,7 @@ const { ApolloServer } = require('apollo-server');
 
 
 const typeDefs = `
-enum Photocategory {
+enum PhotoCategory {
     SELFIE
     PORTRAIT
     ACTION
@@ -15,6 +15,14 @@ type Photo {
     name: String!
     description: String
     category: PhotoCategory!
+}
+
+type User {
+    githubLogin: ID!
+    name: String
+    avatar: String
+    postedPhotos: [Photo!]!
+
 }
 
 input PostPhotoInput {
@@ -44,7 +52,7 @@ const resolvers = {
 
             var newPhoto = {
                 id: _id++,
-                ...args
+                ...args.input
             }
             photos.push(args)
             return newPhoto

@@ -15,6 +15,7 @@ type Photo {
     name: String!
     description: String
     category: PhotoCategory!
+    postedBy: User!
 }
 
 type User {
@@ -40,7 +41,19 @@ type Mutation {
 }
 `
 var _id = 0
-var photos = []
+var photos = [{
+    "id": "1",
+    "name": "Dropping",
+    "description": "The heart chute",
+    "category": "ACTION",
+    "githubUser": "gPlake"
+}, {
+    "id": "2",
+    "name": "Enjoing",
+    "description": "The heart chute",
+    "category": "SELFIE",
+    "githubUser": "sSchmidt"
+}];
 
 const resolvers = {
     Query: {

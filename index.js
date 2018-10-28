@@ -55,13 +55,15 @@ var photos = [{
     "name": "Dropping",
     "description": "The heart chute",
     "category": "ACTION",
-    "postedBy": "gPlake"
+    "postedBy": "gPlake",
+    "created": "3-28-1977"
 }, {
     "id": "2",
     "name": "Enjoing",
     "description": "The heart chute",
     "category": "SELFIE",
-    "postedBy": "sSchmidt"
+    "postedBy": "sSchmidt",
+    "created": "1-2-1985"
 }];
 
 var tags = [

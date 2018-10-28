@@ -16,6 +16,7 @@ type Photo {
     description: String
     category: PhotoCategory!
     postedBy: User!
+    taggedUsers: [User!]!
 }
 
 type User {
@@ -23,6 +24,7 @@ type User {
     name: String
     avatar: String
     postedPhotos: [Photo!]!
+    inPhotos: [Photo!]!
 
 }
 
@@ -78,7 +80,7 @@ const resolvers = {
     Photo: {
         url: parent => `http://yoursite.com/${parent.id}.jpg`,
         postedBy: parent => {
-            return users.find(u => u.githubLogin === parent.githubLogin)
+            return users.find(u => u.githubLogin === parent.postedBy)
         }
     },
     User: {

@@ -1,5 +1,10 @@
 const { ApolloServer } = require('apollo-server');
 const { GraphQLScalarType } = require('graphql');
+const { ApolloServer } = require('apollo-server-express');
+const express = require('express');
+
+
+var app = express();
 
 
 const typeDefs = `
@@ -123,4 +128,5 @@ const server = new ApolloServer({
     resolvers
 })
 
-server.listen().then(({url}) => console.log(`GraphQL Service running om ${url}`))
+server.applyMiddleware({app});
+

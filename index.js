@@ -130,3 +130,8 @@ const server = new ApolloServer({
 
 server.applyMiddleware({app});
 
+app.het('/', (req, res) => res.end('Welcome to the PhotoShare API'));
+
+app.listen({ port: 4000}, () => {
+    console.log("Server running!")
+});
